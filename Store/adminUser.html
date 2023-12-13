@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    <title>Users</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Store</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Product</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="profileTab" href="profile.html">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="basketTab" href="basket.html">Basket</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="orderTab" href="order.html">Order</a>
+                    </li>
+                    <li class="nav-item dropdown" id="adminDropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Admin
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                            <li><a class="dropdown-item" id="userTab" href="adminUser.html">Users</a></li>
+                            <li><a class="dropdown-item" id="productTab" href="adminProduct.html">Product</a></li>
+                            <li><a class="dropdown-item" id="categoryTab" href="adminCategory.html">Category</a></li>
+                            <li><a class="dropdown-item" id="deliveryTab" href="adminDelivery.html">Delivery</a></li>
+                            <li><a class="dropdown-item" id="paymentTab" href="adminPayment.html">Payment</a></li>
+                            <li><a class="dropdown-item" id="rolesTab" href="adminRoles.html">Roles</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <a class="btn btn-sm btn-outline-secondary me-2" id="loginTab" href="login.html">Login</a>
+                    <a class="btn btn-sm btn-outline-secondary" id="registerTab" href="register.html">Register</a>
+                    <a class="btn btn-sm btn-outline-secondary btn-outline-danger" id="logoutTab" style="display: none">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <table id="usersTable" class="display">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Address</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <div class="modal fade" id="editUserModal" data-user-id="" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editUserModalLabel">Edit</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editUserForm">
+                        <div class="mb-3">
+                            <label for="editUserName" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="editUserName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editUserEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="editUserEmail">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editUserPhone" class="form-label">Phone</label>
+                            <input type="tel" class="form-control" id="editUserPhone">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editUserAddress" class="form-label">Address</label>
+                            <input type="text" class="form-control" id="editUserAddress">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editUserCity" class="form-label">City</label>
+                            <input type="text" class="form-control" id="editUserCity">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editUserState" class="form-label">State</label>
+                            <input type="text" class="form-control" id="editUserState">
+                        </div>
+                    </form>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <button type="button" class="btn btn-outline-primary" onclick="openRoleModal()">Role</button>
+                            <button type="button" class="btn btn-outline-danger" onclick="openOrderModal()">Delete</button>
+                            <button class="btn btn-outline-secondary" onclick="openOrderModal()">Orders</button>
+                        </div>
+                        <button type="submit" class="btn btn-outline-success" id="saveChangesBtn">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="orderModalLabel">Order Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body"></div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="editOrderModal" tabindex="-1" aria-labelledby="editOrderModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editOrderModalLabel">Edit Order</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="saveOrderChanges()">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="roleModal" tabindex="-1" aria-labelledby="roleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="roleModalLabel">Manage Roles</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="roleSelect" class="form-label">Select Role</label>
+                        <select class="form-select" id="roleSelect">
+                            <option value="d968d618-f044-4a8c-a1ed-164133e36da4">User</option>
+                            <option value="54b18c4c-e4a6-43ea-89ee-51c93a62f0ea">Admin</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-outline-success" onclick="saveRoleChanges()">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/JS/scripts/mainPage/viewRole.js"></script>
+    <script src="/JS/scripts/adminPage/adminUsers/displayUsers.js"></script>
+    <script src="/JS/scripts/adminPage/adminUsers/editModal.js"></script>
+    <script src="/JS/scripts/adminPage/adminUsers/loadUsers.js"></script>
+    <script src="/JS/scripts/adminPage/adminUsers/mainUser.js"></script>
+    <script src="/JS/scripts/adminPage/adminUsers/orderModal.js"></script>
+</body>
+</html>

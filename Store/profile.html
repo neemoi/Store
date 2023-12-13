@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Store</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="main.html">Product</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="profileTab" href="profile.html">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="basketTab" href="basket.html">Basket</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="orderTab" href="order.html">Order</a>
+                    </li>
+                    <li class="nav-item dropdown" id="adminDropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Admin
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" id="userTab" href="adminUser.html">Users</a>
+                            <a class="dropdown-item" id="productTab" href="adminProduct.html">Product</a>
+                            <a class="dropdown-item" id="categoryTab" href="adminCategory.html">Category</a>
+                            <a class="dropdown-item" id="deliveryTab" href="adminDelivery.html">Delivery</a>
+                            <a class="dropdown-item" id="paymentTab" href="adminPayment.html">Payment</a>
+                            <a class="dropdown-item" id="rolesTab" href="adminRoles.html">Roles</a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="d-flex ml-auto">
+                    <a class="btn btn-sm btn-outline-secondary me-2" id="loginTab" href="login.html">Login</a>
+                    <a class="btn btn-sm btn-outline-secondary" id="registerTab" href="/register.html">Register</a>
+                    <a class="btn btn-sm btn-outline-secondary btn-outline-danger" id="logoutTab" style="display: none">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <h1 class="mb-4">Profile</h1>
+        <form id="profileForm">
+            <div class="form-group">
+                <label for="userName">Name</label>
+                <input type="text" class="form-control" id="userName" name="userName" readonly>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email" readonly>
+            </div>
+            <div class="form-group">
+                <label for="phoneNumber">Phone</label>
+                <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" readonly>
+            </div>
+            <div class="form-group">
+                <label for="state">State</label>
+                <input type="text" class="form-control" id="state" name="state" readonly>
+            </div>
+            <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" class="form-control" id="city" name="city" readonly>
+            </div>
+            <div class="form-group">
+                <label for="address">Address</label>
+                <input type="text" class="form-control" id="address" name="address" readonly>
+            </div>
+            <div class="d-flex justify-content-end">
+                <button type="button" class="btn btn-secondary" id="editProfileBtn">Edit</button>
+                <button type="submit" class="btn btn-success" id="saveProfileBtn" style="display: none;">Save</button>
+            </div>
+        </form>
+    </div>
+    <div class="modal" id="editProfileModal" tabindex="-1" role="dialog" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="btn btn-outline-primary" id="editProfileModalLabel">Edit</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editProfileForm">
+                        <div class="form-group">
+                            <label for="editUserName">Name</label>
+                            <input type="text" class="form-control" id="editUserName" name="userName">
+                        </div>
+                        <div class="form-group">
+                            <label for="editEmail">Email</label>
+                            <input type="email" class="form-control" id="editEmail" name="email">
+                        </div> 
+                        <div class="form-group">
+                            <label for="editCurrentPassword">Current Password</label>
+                            <input type="password" class="form-control" id="editCurrentPassword" name="currentPassword" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editNewPassword">New Password</label>
+                            <input type="password" class="form-control" id="editNewPassword" name="newPassword" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editPhoneNumber">Phone</label>
+                            <input type="tel" class="form-control" id="editPhoneNumber" name="phoneNumber">
+                        </div>
+                        <div class="form-group">
+                            <label for="editState">State</label>
+                            <input type="text" class="form-control" id="editState" name="state">
+                        </div>
+                        <div class="form-group">
+                            <label for="editCity">City</label>
+                            <input type="text" class="form-control" id="editCity" name="city">
+                        </div>
+                        <div class="form-group">
+                            <label for="editAddress">Address</label>
+                            <input type="text" class="form-control" id="editAddress" name="address">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-outline-success" id="saveChangesBtn">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="JS/scripts/userProfile/profile.js"></script>
+    <script src="JS/scripts/mainPage/viewRole.js"></script>
+</body>
+</html>

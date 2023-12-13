@@ -1,0 +1,972 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WebAPIKurs</name>
+    </assembly>
+    <members>
+        <member name="T:WebAPIKurs.Controllers.Admin.AuthorizationController">
+            <summary>
+            Controller responsible for user authorization and authentication operations.
+            </summary>
+        </member>
+        <member name="M:WebAPIKurs.Controllers.Admin.AuthorizationController.LoginAsync(Application.DTOModels.Models.Admin.Authorization.LoginDto)">
+            <summary>
+            Logs in a user
+            </summary>
+            <remarks>
+            Logs in a user based on the provided credentials
+            
+                Password passwords must have at least one uppercase ('A'-'Z', `1`-`0`, `!,@,#,$,%,^,*,(,),_,+,:,",',.,/,?`)
+            </remarks>
+            <response code="200">User logged in successfully</response>
+            <response code="400">Invalid input data or request</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:WebAPIKurs.Controllers.Admin.AuthorizationController.RegisterAsync(Application.DTOModels.Models.Admin.Authorization.RegisterDto)">
+            <summary>
+            Registers a new user
+            </summary>
+            <remarks>
+            Registers a new user with the provided information
+            
+                Email must be a valid email address format (examplename@example.com)
+                
+                Password passwords must have at least one uppercase ('A'-'Z', `1`-`0`, `!,@,#,$,%,^,*,(,),_,+,:,",',.,/,?`)
+            </remarks>
+            <response code="200">User registered successfully</response>
+            <response code="400">Invalid input data or request</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:WebAPIKurs.Controllers.Admin.AuthorizationController.LogoutAsync">
+            <summary>
+            Logs out the current user.
+            </summary>
+            <remarks>
+            Logs out the currently authenticated user
+            </remarks>
+            <response code="200">User logged out successfully</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:WebAPIKurs.Controllers.Admin.CategoryController.GetCategoryWithPaginationAsync(Application.DTOModels.Models.Admin.Pagination.CategoryQueryParametersDto)">
+            <summary>
+            Retrieves categories with pagination and filtering
+            </summary>
+            <remarks>
+            Retrieves a list of categories based on specified parameters with pagination and filtering
+            
+                Example Request:
+            
+                    GET Admin/Category
+                    {
+                        "Page": 1,
+                        "PageSize": 10,
+                        "SortField": "Id",
+                        "SortOrder": "asc",
+                        "Id": "category_id",
+                        "Description": "category_description",
+                        "Name": "category_name"
+                    }
+            
+                - Page / PageSize: Page number and page size for pagination
+                - SortField: Field to sort the results by (e.g., Id, Description)
+                - SortOrder: Sort order (asc or desc)
+                - Id: Category ID to filter by
+                - Description: Category description to filter by
+                - Name: Category name to filter by
+                
+                categoryId: 
+                    1 - Phone
+                    2 - Watch 
+                    3 - Headphones 
+                    4 - Pixel Tablet 
+                    5 - Accessories
+            </remarks>
+            <response code="200">List of categories retrieved successfully</response>
+            <response code="400">Invalid input data or request</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:WebAPIKurs.Controllers.Admin.CategoryController.CreateCategoryAsync(Application.DTOModels.Models.Admin.Category.CategoryCreateDto)">
+            <summary>
+            Creates a new category
+            </summary>
+            <remarks>
+            Creates a new category based on the provided category data
+            
+                Example Request:
+            
+                    POST Admin/Category
+                    {
+                        "Description": "category_description",
+                        "Name": "category_name"
+                    }
+            </remarks>
+            <response code="200">Category created successfully</response>
+            <response code="400">Invalid input data or request</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:WebAPIKurs.Controllers.Admin.CategoryController.EditCategoryAsync(Application.DTOModels.Models.Admin.Category.CategoryEditDto)">
+            <summary>
+            Edits an existing category
+            </summary>
+            <remarks>
+            Edits an existing category based on the provided category ID and updated data
+            
+                Example Request:
+            
+                    PUT Admin/Category
+                    {
+                        "Id": "updated_category_id",
+                        "Description": "updated_category_description",
+                        "Name": "updated_category_name"
+                    }
+            </remarks>
+            <response code="200">Category updated successfully</response>
+            <response code="400">Invalid input data or request</response>
+            <response code="404">Category not found</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:WebAPIKurs.Controllers.Admin.CategoryController.DeleteCategoryAsync(System.Int32)">
+            <summary>
+            Deletes a category by its ID
+            </summary>
+            <remarks>
+            Deletes a category based on the provided category ID
+            
+                Example Request:
+            
+                    DELETE Admin/Category
+                    {
+                        "id": 64
+                    }
+            </remarks>
+            <response code="200">Category deleted successfully</response>
+            <response code="404">Category not found</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:WebAPIKurs.Controllers.Admin.DeliveryController.GetDeliveryWithPaginationAsync(Application.DTOModels.Models.Admin.Pagination.DeliveryQueryParametersDto)">
+            <summary>
+            Retrieves deliveries with pagination and filtering
+            </summary>
+            <remarks>
+            Retrieves a list of deliveries based on specified parameters with pagination and filtering
+            
+                Example Request:
+            
+                    GET Admin/Delivery
+                    {
+                        "Page": 1,
+                        "PageSize": 10,
+                        "SortField": "Id",
+                        "SortOrder": "asc",
+                        "Id": "delivery_id",
+                        "Price": "100.00",
+                        "Type": "delivery_type"
+                    }
+                    
+                Type:
+                    mail (price 30$)
+                    pickup (price 0$)
+                    courier (price 15$)
+            </remarks>
+            <response code="200">List of deliveries retrieved successfully</response>
+            <response code="400">Invalid input data or request</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:WebAPIKurs.Controllers.Admin.DeliveryController.CreateDeliveryAsync(Application.DTOModels.Models.Admin.Delivery.DeliveryCreateDto)">
+            <summary>
+            Creates a new delivery
+            </summary>
+            <remarks>
+            Creates a new delivery based on the provided delivery details
+            
+                Example Request:
+            
+                    POST Admin/Delivery
+                    {
+                        "Id": "delivery_id",
+                        "Price": "100.00",
+                        "Type": "delivery_type"
+                    }
+                    
+                Type:
+                    mail (price 30$)
+                    pickup (price 0$)
+                    courier (price 15$)
+            </remarks>
+            <response code="200">Delivery created successfully</response>
+            <response code="400">Invalid input data or request</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:WebAPIKurs.Controllers.Admin.DeliveryController.EditDeliveryAsync(Application.DTOModels.Models.Admin.Delivery.DeliveryEditDto)">
+            <summary>
+            Edits an existing delivery
+            </summary>
+            <remarks>
+            Edits an existing delivery based on the provided delivery ID and updated delivery details
+            
+                Example Request:
+            
+                    PUT Admin/Delivery
+                    {
+                        "Id": "delivery_id",
+                        "Price": "100.00",
+                        "Type": "delivery_type"
+                    }
+                    
+                Type:
+                    mail (price 30$)
+                    pickup (price 0$)
+                    courier (price 15$)
+            </remarks>
+            <response code="200">Delivery updated successfully</response>
+            <response code="400">Invalid input data or request</response>
+            <response code="404">Delivery not found</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:WebAPIKurs.Controllers.Admin.DeliveryController.DeleteDeliveryAsync(System.Int32)">
+            <summary>
+            Deletes a delivery by ID
+            </summary>
+            <remarks>
+            Deletes a delivery based on the provided delivery ID
+            
+                Example Request:
+            
+                    DELETE Admin/Delivery
+                    {
+                        "id": 43
+                    }
+            </remarks>
+            <response code="200">Delivery deleted successfully</response>
+            <response code="404">Delivery not found</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:WebAPIKurs.Controllers.Admin.PaymentController.GetPaymentsWithPaginationAsync(Application.DTOModels.Models.Admin.Pagination.PaymentQueryParametersDto)">
+            <summary>
+            Retrieves payments with pagination and filtering
+            </summary>
+            <remarks>
+            Retrieves a list of payments based on specified parameters with pagination and filtering
+            
+                Example Request:
+            
+                    GET Admin/Payment
+                    {
+                        "Page": 1,
+                        "PageSize": 10,
+                        "SortField": "Id",
+                        "SortOrder": "asc",
+                        "Id": "payment_id",
+                        "Amount": "100.00",
+                        "Type": "payment_type"
+                    }
+            
+                - Page / PageSize: Page number and page size for pagination
+                - SortField: Field to sort the results by (e.g., Id, Amount)
+                - SortOrder: Sort order (asc or desc)
+                - Id: Payment ID to filter by
+                - Amount: Payment amount to filter by
+                - Type: Payment type to filter by
+                
+                Type:
+                   card (amount 0.50$)
+                   e-money (amount 3$)
+                   cash (amount 3$)
+            </remarks>
+            <response code="200">List of payments retrieved successfully</response>
+            <response code="400">Invalid input data or request</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:WebAPIKurs.Controllers.Admin.PaymentController.CreatePaymentAsync(Application.DTOModels.Models.Admin.Payment.PaymentCreateDto)">
+            <summary>
+            Creates a new payment
+            </summary>
+            <remarks>
+            Creates a new payment entry based on the provided payment details
+            
+                Example Request:
+            
+                    POST Admin/Payment
+                    {
+                        "Id": "payment_id",
+                        "Amount": 100.00,
+                        "Type": "payment_type"
+                    }
+            
+                Type:
+                   card (amount 0.50$)
+                   e-money (amount 3$)
+                   cash (amount 3$)
+            </remarks>
+            <response code="200">Payment created successfully</response>
+            <response code="400">Invalid input data or request</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:WebAPIKurs.Controllers.Admin.PaymentController.EditPaymentAsync(Application.DTOModels.Models.Admin.Payment.PaymentEditDto)">
+            <summary>
+            Edits payment information
+            </summary>
+            <remarks>
+            Edits payment information based on the provided payment data
+            
+                Example Request:
+            
+                    PUT Admin/Payment
+                    {
+                        "Id": "payment_id",
+                        "Amount": 120.00,
+                        "Type": "updated_payment_type"
+                    }
+            
+                Type:
+                   card (amount 0.50$)
+                   e-money (amount 3$)
+                   cash (amount 3$)
+            </remarks>
+            <response code="200">Payment information updated successfully</response>
+            <response code="400">Invalid input data or request</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:WebAPIKurs.Controllers.Admin.PaymentController.DeletePaymentAsync(System.Int32)">
+            <summary>
+            Deletes a payment
+            </summary>
+            <remarks>
+            Deletes a payment with the provided payment ID
+            
+                Example Request:
+            
+                    DELETE Admin/Payment
+                    {
+                        "id": 53
+                    }
+            
+            </remarks>
+            <response code="200">Payment deleted successfully</response>
+            <response code="404">Payment not found</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:WebAPIKurs.Controllers.Admin.ProductController.GetProductWithPaginationAsync(Application.DTOModels.Models.Admin.Pagination.ProductQueryParametersDto)">
+            <summary>
+            Retrieves products with pagination and filtering
+            </summary>
+            <remarks>
+            Retrieves a list of products based on specified parameters with pagination and filtering
+            
+                Example Request:
+            
+                    GET Admin/Product
+                    {
+                       "Page": 1,
+                       "PageSize": 10,
+                       "SortField": Name,
+                       "SortOrder": asc,
+                       "Id": 43,
+                       "Name": product_name,
+                       "Description": product_description,
+                       "Price": 100,
+                       "Color": blue,
+                       "Memory": 8GB,
+                       "CategoryName": Phone
+                    }
+            
+                - Page / PageSize: Page number and page size for pagination
+                - SortField: Field to sort the results by (e.g., Name, Price)
+                - SortOrder: Sort order (asc or desc)
+                - Id: Product ID to filter by
+                - Name: Product name to filter by
+                - Description: Product description to filter by
+                - Price: Product price to filter by
+                - Color: Product color to filter by
+                - Memory: Product memory capacity to filter by
+                - CategoryName: Product category name to filter by
+                
+                CategoryName: Phone, Watch, Headphones, Pixel Tablet, Accessories
+            </remarks>
+            <response code="200">List of products retrieved successfully</response>
+            <response code="400">Invalid input data or request</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:WebAPIKurs.Controllers.Admin.ProductController.CreateProductAsync(Application.DTOModels.Models.Admin.Product.ProductCreateDto)">
+            <summary>
+            Creates a new product
+            </summary>
+            <remarks>
+            Creates a new product based on the provided product data
+            
+                Example Request:
+            
+                    POST Admin/Product
+                    {
+                        "name": "ProductName",
+                        "description": "ProductDescription",
+                        "price": 100.00,
+                        "color": "blue",
+                        "memory": "8GB",
+                        "categoryId": "3"
+                    }
+                
+                categoryId: 
+                    1 - Phone
+                    2 - Watch 
+                    3 - Headphones 
+                    4 - Pixel Tablet 
+                    5 - Accessories
+            </remarks>
+            <response code="200">Product created successfully</response>
+            <response code="400">Invalid input data or request</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:WebAPIKurs.Controllers.Admin.ProductController.EditProductAsync(Application.DTOModels.Models.Admin.Product.ProductEditDto)">
+            <summary>
+            Edits an existing product
+            </summary>
+            <remarks>
+            Edits an existing product based on the provided product ID and new product data
+            
+                Example Request:
+            
+                    PUT Admin/Product
+                    {
+                        "id": "product_id",
+                        "name": "ProductName",
+                        "description": "ProductDescription",
+                        "price": 100.00,
+                        "color": "blue",
+                        "memory": "8GB",
+                        "categoryId": "4"
+                    }
+                    
+                categoryId: 
+                    1 - Phone
+                    2 - Watch 
+                    3 - Headphones 
+                    4 - Pixel Tablet 
+                    5 - Accessories
+            </remarks>
+            <response code="200">Product edited successfully</response>
+            <response code="400">Invalid input data or request</response>
+            <response code="404">Product not found</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:WebAPIKurs.Controllers.Admin.ProductController.DeleteProductAsync(System.Int32)">
+            <summary>
+            Deletes a product by its ID
+            </summary>
+            <remarks>
+            Deletes a product based on the provided product ID
+            
+                Example Request:
+            
+                    DELETE Admin/Product
+                    {
+                       "id": 91
+                    }
+            </remarks>
+            <response code="200">Product deleted successfully</response>
+            <response code="404">Product not found</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:WebAPIKurs.Controllers.Admin.RolesController.GetRoleWithPaginationAsync(Application.DtoModels.Models.Pagination.RoleQueryParametersDto)">
+            <summary>
+            Retrieves roles with pagination and filtering
+            </summary>
+            <remarks>
+            Retrieves roles based on the specified parameters with pagination and filtering.
+            
+                Example Request:
+            
+                    GET Admin/Role
+                    {
+                       "Page": 1,
+                       "PageSize": 10,
+                       "SortField": Name,
+                       "SortOrder": asc,
+                       "Id": role_id,
+                       "Name": admin
+                    }
+            
+                - Page / PageSize: Page number and page size for pagination
+                - SortField: Field to sort the results by (e.g., Name, Id)
+                - SortOrder: Sort order (asc or desc)
+                - Id: Role ID to filter by
+                - Name: Role name to filter by
+            </remarks>
+            <response code="200">List of roles successfully found</response>
+            <response code="400">Invalid input data or request</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:WebAPIKurs.Controllers.Admin.RolesController.CreateRoleAsync(System.String)">
+            <summary>
+            Creates a new role
+            </summary>
+            <remarks>
+            Creates a new role based on the provided role name
+            
+                Example Request:
+            
+                    POST Admin/Role
+                    {
+                      "roleName": "NewRoleName"
+                    }
+            </remarks>
+            <response code="200">Role created successfully</response>
+            <response code="400">Invalid input data or request</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:WebAPIKurs.Controllers.Admin.RolesController.EditRoleByIdAsync(Application.DTOModels.Models.Admin.Roles.EditRoleByIdDto)">
+            <summary>
+            Edits a role by its ID
+            </summary>
+            <remarks>
+            Edits a role based on the provided role ID and new name
+            
+                Example Request:
+            
+                    PUT Admin/Role/
+                    {
+                      "id": "d968d618-f044-4a8c-a1ed-164133e36da4",
+                      "name": "NewRoleName"
+                    }
+            </remarks>
+            <response code="200">Role updated successfully</response>
+            <response code="400">Invalid input data or request</response>
+            <response code="404">Role not found</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:WebAPIKurs.Controllers.Admin.RolesController.DeleteRoleAsync(System.Guid)">
+            <summary>
+            Deletes a role by its ID
+            </summary>
+            <remarks>
+            Deletes a role based on the provided role ID
+            
+                Example Request:
+            
+                    DELETE 
+                    {
+                        "id": "d968d618-f044-4a8c-a1ed-164133e36da4"
+                    }
+            </remarks>
+            <response code="200">Role deleted successfully</response>
+            <response code="400">Invalid input data or request</response>
+            <response code="404">Role not found</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:WebAPIKurs.Controllers.User.OrderController.UserGetProductWithPaginationAsync(Application.DTOModels.Models.Admin.Pagination.UserProductQueryParametersDto)">
+            <summary>
+            Retrieves products with pagination and filtering for a user
+            </summary>
+            <remarks>
+            Retrieves products based on specified parameters with pagination and filtering
+            
+                Example Request:
+            
+                    GET User/Order/Product
+                    {
+                       "ProductPage": 1,
+                       "PageSize": 10,
+                       "SortField": Name,
+                       "SortOrder": asc,
+                       "Name": product_name,
+                       "Price": 100,
+                       "Color": blue,
+                       "Memory": 8GB,
+                       "CategoryName": Phone
+                    }
+            
+                - Page / PageSize: Page number and page size for pagination
+                - SortField: Field to sort the results by (e.g., Name, Price)
+                - SortOrder: Sort order (asc or desc)
+                - Name: Product name to filter by
+                - Price: Product price to filter by
+                - Color: Product color to filter by
+                - Memory: Product memory capacity to filter by
+                - CategoryName: Product category name to filter by
+            
+                CategoryName: Phone, Watch, Headphones, Pixel Tablet, Accessories
+            </remarks>
+            <response code="200">List of products retrieved successfully</response>
+            <response code="400">Invalid input data or request</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:WebAPIKurs.Controllers.User.OrderController.UserGetOrderWithPaginationAsync(Application.DTOModels.Models.Admin.Pagination.UserOrderQueryParametersDto)">
+            <summary>
+            Retrieves orders with pagination and filtering for a user
+            </summary>
+            <remarks>
+            Retrieves orders based on specified parameters with pagination and filtering
+            
+                Example Request:
+            
+                    GET User/Order
+                    {
+                       "Page": 1,
+                       "PageSize": 10,
+                       "SortField": CreatedAt,
+                       "SortOrder": ascOrder,
+                       "Id": 12345,
+                       "CreateAt": 2023-11-20,
+                       "Status": new,
+                       "TotalPrice": 100,
+                       "DeliveryId": 5,
+                       "PaymentId": 3
+                    }
+            
+                - Page / PageSize: Page number and page size for pagination
+                - SortField: Field to sort the results by (e.g., CreatedAt, TotalPrice)
+                - SortOrder: Sort order (asc or desc)
+                - OrderId: Order ID to filter by
+                - CreateAt: Date of order creation to filter by
+                - Status: Order status to filter by
+                - TotalPrice: Total price of the order to filter by
+                - DeliveryId: Delivery ID to filter by
+                - PaymentId: Payment ID to filter by
+                
+                paymentId:
+                    5 - card (amount 0.50$)
+                    6 - e-money (amount 3$)
+                    7 - cash (amount 3$)
+                
+                deliverId:
+                    2 - mail (price 30$)
+                    3 - pickup (price 0$)
+                    4 - courier (price 15$)
+            </remarks>
+            <response code="200">List of orders retrieved successfully</response>
+            <response code="400">Invalid input data or request</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:WebAPIKurs.Controllers.User.OrderController.CreateOrderAsync(Application.DTOModels.Models.User.Order.OrderCreateDto)">
+            <summary>
+            Create a new order for the user
+            </summary>
+            <remarks>
+            Creates a new order based on the provided data 
+            
+                Request example:
+                
+                    POST User/Order
+                    {
+                      "listProductId": [1, 2, 3],
+                      "paymentId": 5,
+                      "deliverId": 2,
+                      "quantity": 1
+                    }
+                    
+                paymentId:
+                    5 - card (amount 0.50$)
+                    6 - e-money (amount 3$)
+                    7 - cash (amount 3$)
+                
+                deliverId:
+                    2 - mail (price 30$)
+                    3 - pickup (price 0$)
+                    4 - courier (price 15$)
+            </remarks>
+            <response code="200">Order successfully created</response>
+            <response code="400">Invalid input data or request</response>
+            <response code="404">User or product not found, or required fields are missing</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:WebAPIKurs.Controllers.User.OrderController.EditOrderAsync(Application.DTOModels.Models.User.Order.OrderEditDto)">
+            <summary>
+            Edit order for the user
+            </summary>
+            <remarks>
+            Modifies the order based on the data provided
+            
+                Request example:
+                
+                    PUT User/Order
+                    {
+                      "orderId": 53,
+                      "listProductId": [1, 2, 3],
+                      "paymentId": 5,
+                      "deliverId": 2,
+                      "quantity": 1
+                    }
+                
+                paymentId:
+                    5 - card (amount 0.50$)
+                    6 - e-money (amount 3$)
+                    7 - cash (amount 3$)
+                
+                deliverId:
+                    2 - mail (price 30$)
+                    3 - pickup (price 0$)
+                    4 - courier (price 15$)
+            </remarks>
+            <response code="200">Order successfully edit</response>
+            <response code="400">Invalid input data or request</response>
+            <response code="404">User or product not found, or required fields are missing</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:WebAPIKurs.Controllers.User.OrderController.DeleteOrderAsync(System.Int32)">
+            <summary>
+            Delete order for the user
+            </summary>
+            <remarks>
+            Delete the order based on the data provided
+            
+                Request example:
+                
+                    DELETE User/Order
+                    {
+                      "orderId": 15,
+                    }
+            </remarks>
+            <response code="200">Order successfully delete</response>
+            <response code="400">Invalid input data or request</response>
+            <response code="404">User or product not found, or required fields are missing</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:WebAPIKurs.Controllers.User.ProfileController.GetAllInfoAsync">
+            <summary>
+            Get User information
+            </summary>
+            <remarks>
+            Retrieves user information based on the current user ID
+            
+                Request example:
+                
+                    GET User/Profile
+                    {
+                      "email": "user1@example.com",
+                      "userName": "user1",
+                      "phoneNumber": "48938176",
+                      "address": "adress",
+                      "city": "city",
+                      "state": "state",
+                    }
+                    
+                `Email` must be a valid email address format (examplename@example.com)
+            </remarks>
+            <response code="200">User profile successfully found</response>
+            <response code="400">Invalid input data or request</response>
+            <response code="404">User not found</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:WebAPIKurs.Controllers.User.ProfileController.EditProfileAsync(Application.DTOModels.Models.User.EditProfileDto)">
+            <summary>
+            Update User profile
+            </summary>
+            <remarks>
+            Updates the user profile based on the provided data
+                
+                Request example:
+                
+                    PUT User/Profile
+                    {
+                      "email": "user1@example.com",
+                      "userName": "user1",
+                      "phoneNumber": "48938176",
+                      "address": "adress",
+                      "city": "city",
+                      "state": "state",
+                      "currentPassword": "avaKJ*1",
+                      "newPassword": "avaKJ*1",
+                    }
+                    
+                Email must be a valid email address format (examplename@example.com)
+                Password passwords must have at least one uppercase ('A'-'Z', `1`-`0`, `!,@,#,$,%,^,*,(,),_,+,:,",',.,/,?`)
+            </remarks>
+            <param name="editModel">Model for updating the user profile</param>
+            <response code="200">User profile successfully updated</response>
+            <response code="400">Invalid input data or request</response>
+            <response code="404">User not found</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:WebApi.Controllers.Admin.UsersController.GetUserWithPaginationAsync(Application.DtoModels.Models.Pagination.UserQueryParametersDto)">
+            <summary>
+            Retrieves users with pagination and filtering
+            </summary>
+            <remarks>
+            Retrieves a list of users based on specified parameters with pagination and filtering
+            
+                Example Request:
+            
+                    GET Admin/User
+                    {
+                       "Page": 1,
+                       "PageSize": 10,
+                       "SortField": userName,
+                       "SortOrder": asc,
+                       "Id": e532e613-6ebb-4bff-abee-4eda9e69f13d,
+                       "UserName": username,
+                       "Email": user@example.com,
+                       "PhoneNumber": 123456789,
+                       "State": state,
+                       "City": city,
+                       "Address"; address
+                    }
+            
+                - Page / PageSize: Page number and page size for pagination
+                - SortField: Field to sort the results by (e.g., UserName, Email)
+                - SortOrder: Sort order (asc or desc)
+                - Id: User ID to filter by
+                - UserName: User name to filter by
+                - Email: Email address to filter by 
+                - PhoneNumber: Phone number to filter by
+                - State: State information to filter by
+                - City: City information to filter by
+                - Address: Address information to filter by
+                
+                `Email` must be a valid email address format (examplename@example.com)
+            </remarks>
+            <response code="200">List of users retrieved successfully</response>
+            <response code="400">Invalid input data or request</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:WebApi.Controllers.Admin.UsersController.GeUserOrderWithPaginationAsync(Application.DTOModels.Models.Admin.Pagination.GeUsertOrderQueryParametersDto)">
+            <summary>
+            Retrieves user orders with pagination and filtering
+            </summary>
+            <remarks>
+            Retrieves a list of user orders based on specified parameters with pagination and filtering
+            
+                Example Request:
+            
+                    GET Admin/User/Order
+                    {
+                       "userId": e532e613-6ebb-4bff-abee-4eda9e69f13d,
+                       "Page": 1,
+                       "PageSize": 10,
+                       "SortField": CreatedAt,
+                       "SortOrder": asc,
+                       "Status": new,
+                       "Price": 100,
+                       "DeliveryId": 4,
+                       "PaymentId": 5,
+                       "Price": 500,
+                       "Color": blue,
+                       "Memory": 8GB
+                    }
+            
+                - userId: The unique identifier of the user for whom orders are retrieved
+                - Page / PageSize: Page number and page size for pagination
+                - SortField: Field to sort the results by (e.g., CreatedAt, TotalPrice)
+                - SortOrder: Sort order (asc or desc)
+                - Status: Order status to filter by
+                - TotalPrice: Total order price to filter by
+                - DeliveryId: ID of the delivery to filter by
+                - PaymentId: ID of the payment to filter by
+                - Price: Product price within the order to filter by
+                - Color: Product color within the order to filter by
+                - Memory: Product memory within the order to filter by
+            
+                paymentId:
+                    5 - card (amount 0.50$)
+                    6 - e-money (amount 3$)
+                    7 - cash (amount 3$)
+                
+                deliverId:
+                    2 - mail (price 30$)
+                    3 - pickup (price 0$)
+                    4 - courier (price 15$)
+            </remarks>
+            <response code="200">List of user orders retrieved successfully</response>
+            <response code="400">Invalid input data or request</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:WebApi.Controllers.Admin.UsersController.EditUserOrderAsync(Application.DTOModels.Models.Admin.UserOrderEditDto)">
+             <summary>
+             Edits a user's order based on provided parameters
+             </summary>
+             <remarks>
+             Edits a user's order, updating order items and details
+             
+                 Example Request:
+             
+                     PUT /User/Order/Edit
+                     {
+                       "userId": "e532e613-6ebb-4bff-abee-4eda9e69f13d",
+                       "paymentId": 123,
+                       "deliverId": 456,
+                       "listProductId": [1, 2, 3],
+                       "quantity": 5
+                     }
+            
+                 paymentId:
+                     5 - card (amount 0.50$)
+                     6 - e-money (amount 3$)
+                     7 - cash (amount 3$)
+                 
+                 deliverId:
+                     2 - mail (price 30$)
+                     3 - pickup (price 0$)
+                     4 - courier (price 15$)
+             </remarks>
+             <response code="200">Order updated successfully</response>
+             <response code="400">Invalid input data or request</response>
+             <response code="500">Internal server error</response>
+        </member>
+        <member name="M:WebApi.Controllers.Admin.UsersController.EditUserRoleAsync(Application.DTOModels.Models.Admin.Roles.EditUserRoleDto)">
+            <summary>
+            Edits the role of a user
+            </summary>
+            <remarks>
+            Edits the role of a user based on the provided user and role by ID
+            
+                Example Request:
+            
+                    PUT /Admin/User/Role
+                    {
+                      "userId": "e532e613-6ebb-4bff-abee-4eda9e69f13d",
+                      "roleId": "123e4567-e89b-12d3-a456-426614174000"
+                    }
+                    
+                roleId:
+                  User: d968d618-f044-4a8c-a1ed-164133e36da4
+                  Admin: 54b18c4c-e4a6-43ea-89ee-51c93a62f0ea
+            </remarks>
+            <response code="200">User role updated successfully</response>
+            <response code="400">Invalid input data or request</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:WebApi.Controllers.Admin.UsersController.EditUserAsync(Application.DtoModels.Models.Admin.UserDto)">
+            <summary>
+            Edits user information
+            </summary>
+            <remarks>
+            Edits user information based on the provided user data
+            
+                Example Request:
+            
+                    PUT Admin/User
+                    {
+                      "id": "e532e613-6ebb-4bff-abee-4eda9e69f13d",
+                      "email": "user1@example.com",
+                      "userName": "user1",
+                      "phoneNumber": "48938176",
+                      "address": "adress",
+                      "city": "city",
+                      "state": "state",
+                    }
+                
+                `Email` must be a valid email address format (examplename@example.com)
+            </remarks>
+            <response code="200">User information updated successfully</response>
+            <response code="400">Invalid input data or request</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:WebApi.Controllers.Admin.UsersController.DeleteUserAsync(System.String)">
+            <summary>
+            Deletes a user by ID
+            </summary>
+            <remarks>
+            Deletes a user based on the provided user ID
+            
+                Example Request:
+            
+                    DELETE Admin/User
+                    {
+                       "id": "e532e613-6ebb-4bff-abee-4eda9e69f13d"
+                    }
+            </remarks>
+            <response code="200">User deleted successfully</response>
+            <response code="400">Invalid input data or request</response>
+            <response code="500">Internal server error</response>
+        </member>
+    </members>
+</doc>

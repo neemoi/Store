@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">  
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <title>Delivery</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Store</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Product</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="profileTab" href="profile.html">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="basketTab" href="basket.html">Basket</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="orderTab" href="order.html">Order</a>
+                    </li>
+                    <li class="nav-item dropdown" id="adminDropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Admin
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                            <li><a class="dropdown-item" id="userTab" href="adminUser.html">Users</a></li>
+                            <li><a class="dropdown-item" id="productTab" href="adminProduct.html">Product</a></li>
+                            <li><a class="dropdown-item" id="categoryTab" href="adminCategory.html">Category</a></li>
+                            <li><a class="dropdown-item" id="deliveryTab" href="adminDelivery.html">Delivery</a></li>
+                            <li><a class="dropdown-item" id="paymentTab" href="adminPayment.html">Payment</a></li>
+                            <li><a class="dropdown-item" id="rolesTab" href="adminRoles.html">Roles</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <a class="btn btn-sm btn-outline-secondary me-2" id="loginTab" href="login.html">Login</a>
+                    <a class="btn btn-sm btn-outline-secondary" id="registerTab" href="/register.html">Register</a>
+                    <a class="btn btn-sm btn-outline-secondary btn-outline-danger" id="logoutTab" style="display: none">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <h2>Delivery</h2>
+        <div class="table-responsive mt-4">
+            <table class="table table-bordered table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Type</th>
+                        <th>Price</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="deliveryTypesTableBody"></tbody>
+            </table>
+            <button class="btn btn-success mt-2" data-bs-toggle="modal" data-bs-target="#addDeliveryModal">Add delivery</button>
+        </div>
+    </div>
+    <div class="modal fade" id="editDeliveryModal" tabindex="-1" aria-labelledby="editDeliveryModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editDeliveryModalLabel">Edit Delivery Type</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="editDeliveryId">
+                    <div class="mb-3">
+                        <label for="editType" class="mb-3">Type</label>
+                            <select class="form-control mb-3" id="editType">
+                                <option value="mail">Mail</option>
+                                <option value="pickup">Pickup</option>
+                                <option value="courier">Courier</option>
+                            </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editPrice" class="form-label">Price</label>
+                        <input type="number" class="form-control" id="editPrice">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger" onclick="deleteDelivery()">Delete</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-outline-success" onclick="saveChanges()">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="addDeliveryModal" tabindex="-1" aria-labelledby="addDeliveryModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addDeliveryModalLabel">Add type</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="newType" class="mb-3">Type</label>
+                        <select class="form-control mb-3" id="newType">
+                            <option value="mail">Mail</option>
+                            <option value="pickup">Pickup</option>
+                            <option value="courier">Courier</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="newPrice" class="form-label">Price</label>
+                        <input type="number" class="form-control" id="newPrice">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-outline-success" onclick="addNewDelivery()">Add Delivery</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/JS/scripts/mainPage/viewRole.js"></script>
+    <script>
+        async function fetchDeliveryTypes() {
+            try {
+                const response = await fetch('https://localhost:7291/Admin/Delivery');
+                const data = await response.json();
+
+                const deliveryTypesTableBody = document.getElementById('deliveryTypesTableBody');
+                deliveryTypesTableBody.innerHTML = '';
+
+                data.forEach(deliveryType => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `<td>${deliveryType.id}</td><td>${deliveryType.type}</td><td>${deliveryType.price}$</td>
+                                     <td><button class="btn btn-outline-primary" onclick="openEditModal('${deliveryType.id}', '${deliveryType.type}', ${deliveryType.price})">Edit</button></td>`;
+                    deliveryTypesTableBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error fetching delivery types:', error);
+            }
+        }
+
+        function openEditModal(id, type, price) {
+            document.getElementById('editDeliveryId').value = id;
+            document.getElementById('editType').value = type;
+            document.getElementById('editPrice').value = price;
+
+            new bootstrap.Modal(document.getElementById('editDeliveryModal')).show();
+        }
+
+        function saveChanges() {
+            const editedId = document.getElementById('editDeliveryId').value;
+            const editedType = document.getElementById('editType').value;
+            const editedPrice = document.getElementById('editPrice').value;
+
+            const editedDelivery = {
+                Id: editedId,
+                Type: editedType,
+                Price: editedPrice
+            };
+
+            fetch('https://localhost:7291/Admin/Delivery', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(editedDelivery)
+            })
+            .then(response => {
+                if (response.ok) {
+                    fetchDeliveryTypes();
+                } else {
+                    console.error('Error updating delivery:', response.status);
+                }
+            })
+            .catch(error => {
+                console.error('Error updating delivery:', error);
+            })
+            .finally(() => {
+                new bootstrap.Modal(document.getElementById('editDeliveryModal')).hide();
+            });
+        }
+
+        function deleteDelivery() {
+            const id = document.getElementById('editDeliveryId').value;
+
+            if (confirm("Are you sure you want to delete this delivery type?")) {
+                fetch(`https://localhost:7291/Admin/Delivery/${id}`, {
+                    method: 'DELETE',
+                })
+                .then(response => {
+                    if (response.ok) {
+                        fetchDeliveryTypes();
+                        new bootstrap.Modal(document.getElementById('editDeliveryModal')).hide();
+                    } else {
+                        console.error('Error deleting delivery:', response.status);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error deleting delivery:', error);
+                });
+            }
+        }
+
+        window.onload = fetchDeliveryTypes;
+    </script>
+</body>
+</html>
