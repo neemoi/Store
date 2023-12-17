@@ -90,8 +90,8 @@ namespace Persistance.Repository.Admin
                     throw new CustomRepositoryException("Invalid token format", "INVALID_TOKEN_FORMAT_ERROR");
                 }
 
-                var userId = jsonToken.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.NameIdentifier)?.Value
-                                  ?? throw new CustomRepositoryException("User ID not found in token", "INVALID_TOKEN_ERROR");
+                var userId = jsonToken.Claims.FirstOrDefault(claim => claim.Type == "your_custom_claim_name")?.Value
+                    ?? throw new CustomRepositoryException("User ID not found in token", "INVALID_TOKEN_ERROR");
 
                 var user = await _userManager.FindByIdAsync(userId)
                     ?? throw new CustomRepositoryException($"User ID ({userId}) not found", "NOT_FOUND_ERROR_CODE");

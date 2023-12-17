@@ -100,7 +100,7 @@ namespace WebAPIKurs.Controllers.Admin
         [SwaggerResponse(400, "Invalid input data or request")]
         [SwaggerResponse(500, "Internal server error")]
         [HttpPost("Admin/Product")]
-        public async Task<IActionResult> CreateProductAsync([FromQuery] ProductCreateDto productModel)
+        public async Task<IActionResult> CreateProductAsync([FromBody] ProductCreateDto productModel)
         {
             return Ok(await _productService.CreateProductAsync(productModel));
         }

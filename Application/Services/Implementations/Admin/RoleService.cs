@@ -104,13 +104,13 @@ namespace Application.Services.Implementations.Admin
             }
         }
 
-        public async Task<UserResponseDto> EditUserRoleAsync(EditUserRoleDto modelUser)
+        public async Task<UserResponseDto> EditUserRoleAsync(EditUserRoleDto modelUser, string token)
         {
             try
             {
                 _logger.LogInformation("Attempt to edit an user role: {@EditUserRoleDto}", modelUser);
 
-                var result = await _unitOfWork.RoleRepostitory.EditUserRoleAsync(modelUser);
+                var result = await _unitOfWork.RoleRepostitory.EditUserRoleAsync(modelUser, token);
 
                 await _unitOfWork.SaveChangesAsync();
 

@@ -75,8 +75,8 @@ namespace WebAPIKurs.Controllers.Admin
         [SwaggerResponse(200, "Role created successfully", typeof(RoleResponseDto))]
         [SwaggerResponse(400, "Invalid input data or request")]
         [SwaggerResponse(500, "Internal server error")]
-        [HttpPost("Admin/Role")]
-        public async Task<IActionResult> CreateRoleAsync([FromBody] string name)
+        [HttpPost("Admin/Role/{name}")]
+        public async Task<IActionResult> CreateRoleAsync(string name)
         {
             return Ok(await _adminRolesService.CreateRoleAsync(name));
         }
@@ -104,7 +104,7 @@ namespace WebAPIKurs.Controllers.Admin
         [SwaggerResponse(404, "Role not found")]
         [SwaggerResponse(500, "Internal server error")]
         [HttpPut("Admin/Role")]
-        public async Task<IActionResult> EditRoleByIdAsync(EditRoleByIdDto editModel)
+        public async Task<IActionResult> EditRoleByIdAsync([FromBody] EditRoleByIdDto editModel)
         {
             return Ok(await _adminRolesService.EditRoleByIdAsync(editModel));
         }
@@ -130,7 +130,7 @@ namespace WebAPIKurs.Controllers.Admin
         [SwaggerResponse(400, "Invalid input data or request")]
         [SwaggerResponse(404, "Role not found")]
         [SwaggerResponse(500, "Internal server error")]
-        [HttpDelete("Admin/Role")]
+        [HttpDelete("Admin/Role/{id}")]
         public async Task<IActionResult> DeleteRoleAsync(Guid id)
         {
             return Ok(await _adminRolesService.DeleteRoleAsync(id));

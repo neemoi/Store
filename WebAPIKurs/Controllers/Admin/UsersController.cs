@@ -201,8 +201,16 @@ namespace WebApi.Controllers.Admin
         [HttpPut("Admin/User/Role")]
         public async Task<IActionResult> EditUserRoleAsync(EditUserRoleDto editUser)
         {
-            return Ok(await _roleService.EditUserRoleAsync(editUser));
+            var token = HttpContext.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+
+            if (string.IsNullOrEmpty(token))
+            {
+                return BadRequest("Token is missing");
+            }
+
+            return Ok(await _roleService.EditUserRoleAsync(editUser, token));
         }
+
 
         /// <summary>
         /// Edits user information
@@ -232,7 +240,7 @@ namespace WebApi.Controllers.Admin
         [SwaggerResponse(400, "Invalid input data")]
         [SwaggerResponse(500, "Internal server error")]
         [HttpPut("Admin/User")]
-        public async Task<IActionResult> EditUserAsync(UserDto userModel)
+        public async Task<IActionResult> EditUserAsync([FromBody] UserDto userModel)
         {
             var token = HttpContext.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 

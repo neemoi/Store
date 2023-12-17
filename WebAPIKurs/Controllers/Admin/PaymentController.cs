@@ -89,8 +89,8 @@ namespace WebAPIKurs.Controllers.Admin
         [SwaggerResponse(200, "Payment created successfully", typeof(PaymentResponseDto))]
         [SwaggerResponse(400, "Invalid input data")]
         [SwaggerResponse(500, "Internal server error")]
-        [HttpPost("Admin/Payment")]
-        public async Task<IActionResult> CreatePaymentAsync(PaymentCreateDto paymentModel)
+        [HttpPost("Admin/Payment/")]
+        public async Task<IActionResult> CreatePaymentAsync([FromBody] PaymentCreateDto paymentModel)
         {
             return Ok(await _paymentService.CreatePaymentAsync(paymentModel));
         }

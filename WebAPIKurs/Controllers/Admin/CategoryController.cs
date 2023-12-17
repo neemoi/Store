@@ -140,8 +140,8 @@ namespace WebAPIKurs.Controllers.Admin
         [SwaggerResponse(200, "Category deleted successfully", typeof(CategoryResponseDto))]
         [SwaggerResponse(404, "Category not found")]
         [SwaggerResponse(500, "Internal server error")]
-        [HttpDelete("Admin/Category/{id}")]
-        public async Task<IActionResult> DeleteCategoryAsync(int id)
+        [HttpDelete("Admin/Category/")]
+        public async Task<IActionResult> DeleteCategoryAsync([FromQuery] int id)
         {
             return Ok(await _categoryService.DeleteCategoryAsync(id));
         }

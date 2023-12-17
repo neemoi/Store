@@ -11,6 +11,6 @@ namespace Application.Services.Interfaces.IServices.Admin
 
         Task<RoleResponseDto> DeleteRoleAsync(Guid roleId);
 
-        Task<UserResponseDto> EditUserRoleAsync(EditUserRoleDto editUser);
+        Task<UserResponseDto> EditUserRoleAsync(EditUserRoleDto editUser, string token);
     }
 }

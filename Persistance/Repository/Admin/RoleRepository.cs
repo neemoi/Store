@@ -5,6 +5,7 @@ using Application.Services.Interfaces.IRepository.Admin;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
+using System.IdentityModel.Tokens.Jwt;
 using WebAPIKurs;
 
 namespace Persistance.Repository.Admin
@@ -107,12 +108,23 @@ namespace Persistance.Repository.Admin
             }
         }
 
-        public async Task<UserResponseDto> EditUserRoleAsync(EditUserRoleDto editUser)
+        public async Task<UserResponseDto> EditUserRoleAsync(EditUserRoleDto editUser, string token)
         {
             try
             {
-                var user = await _userManager.FindByIdAsync(editUser.UserId)
-                    ?? throw new CustomRepositoryException($"User ID ({editUser.UserId}) not found", "NOT_FOUND_ERROR_CODE");
+                var handler = new JwtSecurityTokenHandler();
+                var jsonToken = handler.ReadToken(token) as JwtSecurityToken;
+
+                if (jsonToken == null)
+                {
+                    throw new CustomRepositoryException("Invalid token format", "INVALID_TOKEN_FORMAT_ERROR");
+                }
+
+                var userId = jsonToken.Claims.FirstOrDefault(claim => claim.Type == "your_custom_claim_name")?.Value;
+                Console.WriteLine("User ID from Token: " + userId);
+
+                var user = await _userManager.FindByIdAsync(userId)
+                    ?? throw new CustomRepositoryException($"User ID ({userId}) not found", "NOT_FOUND_ERROR_CODE");
 
                 var role = await _roleManager.FindByIdAsync(editUser.RoleId)
                     ?? throw new CustomRepositoryException($"Role ID ({editUser.RoleId}) not found", "NOT_FOUND_ERROR_CODE");

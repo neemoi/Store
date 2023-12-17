@@ -11,6 +11,6 @@ namespace Application.DTOModels.Models.Admin.Payment
         public string? Type { get; set; }
 
         [Required]
-        public string? Emount { get; set; }
+        public decimal Emount { get; set; }
     }
 }

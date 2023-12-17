@@ -12,6 +12,6 @@ namespace Application.Services.Interfaces.IRepository.Admin
 
         Task<IdentityRole> DeleteRoleAsync(Guid roleId);
 
-        Task<UserResponseDto> EditUserRoleAsync(EditUserRoleDto editUser);
+        Task<UserResponseDto> EditUserRoleAsync(EditUserRoleDto editUser, string token);
     }
 }
